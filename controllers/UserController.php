@@ -1,3 +1,4 @@
+gdfg
 <?php
 namespace app\controllers;
 
@@ -17,7 +18,9 @@ class UserController extends Controller
        
             if(!Yii::$app->user->isGuest){
                 return $this->goHome();
+                
             }
+
         $model = new \app\models\LoginForm;
        $model->load(\Yii::$app->request->post());
             if($model->validate()){
