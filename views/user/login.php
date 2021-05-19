@@ -20,6 +20,6 @@ elseif(Yii::$app->session->hasFlash('error')){
 <?= $form->field($model, 'pass')->passwordInput()?>
 <br>
 <?= Html::submitButton('Вход',['class'=>'btn btn-primary'])?>
-sdfsgdfgdfg
+
 <?php $form = ActiveForm::end() ?>
 

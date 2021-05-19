@@ -1,6 +1,5 @@
 <p align="center">
-    <h1 align="center">---</h1>
+    <h1 align="center">Good</h1>
     <br>
-    <span>Ку</span>
 </p>
 
