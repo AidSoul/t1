@@ -1,0 +1,117 @@
+* {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+
+  
+  li {
+    list-style: none;
+  }
+  
+  body {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 18px;
+    color: #474747;
+  }
+  
+  h1 {
+    font-size: 20px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+  
+  .links, .work-block {
+    background-color: #f3f3f3;
+  }
+  
+  .links, .work-block, .work-block__case {
+    padding: 10px;
+  }
+  
+  .links, .work-block, .work-block__right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  
+  .page {
+    width: 1366px;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  
+  .links-group {
+    border: solid 1px rgba(104, 104, 104, 0.39);
+  }
+  
+  .links-group:hover {
+    background-color: #FF9FA6;
+    border: solid 1px #8d8d8d;
+    cursor: pointer;
+  }
+  
+  .links-group a {
+    color: grey;
+  }
+  
+  .links {
+    margin: 0 auto;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+
+  .links__item {
+    padding: 5px;
+  }
+  .span-logo {
+    font-size: 20px;
+  }
+  .work-block {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  
+  .work-block__case {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 400px;
+            flex: 0 1 400px;
+    text-align: center;
+    border: solid 1px rgba(104, 104, 104, 0.39);
+    margin: 5px 0;
+  }
+  
+  .work-block__case:first-of-type {
+    margin-top: 0;
+  }
+  
+  .work-block__case:last-of-type {
+    margin-bottom: 0;
+  }
+  
+  .work-block__case:hover {
+    -webkit-box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.75);
+            box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.75);
+  }
+  
+  .work-block__case h2 {
+    margin-bottom: 10px;
+  }
+  
+  .work-block__case img {
+    width: 100%;
+    max-width: 400px;
+  }
+
+/* alert */
