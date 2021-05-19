@@ -1,4 +1,3 @@
-gdfg
 <?php
 namespace app\controllers;
 
@@ -8,7 +7,6 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\User;
-
 
 class UserController extends Controller
 {

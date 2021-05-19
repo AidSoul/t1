@@ -13,9 +13,4 @@ return [
 
     // Название компонента кеша, используемого для хранения информации о схеме
     'schemaCache' => 'cache',
-
-    // Schema cache options (for production environment)
-    //'enableSchemaCache' => true,
-    //'schemaCacheDuration' => 60,
-    //'schemaCache' => 'cache',
 ];
