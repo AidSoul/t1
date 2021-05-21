@@ -6,10 +6,11 @@ return [
     'username' => 'root',
     'password' => '0*M#cS)kX243E',
     'charset' => 'utf8',
-    'enableSchemaCache' => true,
+
+    'enableSchemaCache' => false,
     
     // Продолжительность кеширования схемы.
-    'schemaCacheDuration' => 3600,
+    'schemaCacheDuration' => 60,
     // Название компонента кеша, используемого для хранения информации о схеме
     'schemaCache' => 'cache',
 ];

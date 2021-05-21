@@ -28,10 +28,19 @@ AppAsset::register($this);
     <div class="container">
     <div class="page">
     <header>
+    <div class="position-fix">
+               <span class="span-logo">Профиль</span>    
+             <hr>
+             <?= \Yii::$app->user->fio ?>
+             <?= Html::a('Выход',['/logout'])?>
+            </div>
         <nav class="links">
             <div class="links__item">
                <span class="span-logo">Керамика</span>
+            
             </div>
+
+
             <div class="links__item links-group">
             <?= Html::a('Каталог',['/'])?>
             </div>

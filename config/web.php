@@ -2,6 +2,8 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$user = require __DIR__.'/user.php';
+$url = require __DIR__.'/url.php';
 
 $config = [
     'id' => 'basic',
@@ -22,10 +24,7 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-        ],
+        'user' => $user,
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -46,18 +45,7 @@ $config = [
             ],
         ],
         'db' => $db,
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            // 'suffix' => '.html',
-            'rules' => [
-                // '<action:(about|basket)>' => 'site/</action>',
-                'about' => 'site/about',
-                'basket' => 'site/basket',
-                'login' => 'user/login',
-                'signup' => 'user/signup'
-            ],
-        ], 
+        'urlManager' => $url,
         'session' => [
             'class' => 'yii\web\DbSession',
         ],     

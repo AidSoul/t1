@@ -59,6 +59,9 @@
     color: grey;
   }
   
+  .position-fix{
+    position: fixed;
+  }
   .links {
     margin: 0 auto;
     -webkit-box-pack: justify;
