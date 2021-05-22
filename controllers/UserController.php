@@ -16,7 +16,10 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['login', 'logout', 'signup'],
+                // 'denyCallback' => function ($rule, $action) {
+                //   echo 'У вас нет доступа к этой странице';
+                // },
                 'rules' => [
                     [
                         'allow' => true,
@@ -35,14 +38,9 @@ class UserController extends Controller
 
     public function actionLogin()
     {
-            if(!Yii::$app->user->isGuest){
-                return $this->goHome();
-                
-            }
 
         $model = new \app\models\LoginForm;
         $user = new User;
-
        $model->load(\Yii::$app->request->post());
 
             if($model->validate()){
@@ -50,22 +48,21 @@ class UserController extends Controller
                 $identity = $user->findByUsername($model->login);
                 if(!empty($identity)){   
                     if($user->validatePassword($model->pass,$identity->pass)){              
-                        Yii::$app->user->login($identity,3600*24*30);
-                        
-                        Yii::$app->session->setFlash('success',"Успех");
+                        Yii::$app->user->login($identity,3600*24*30);      
+                                         
+                        return $this->goHome();
                     }
                     else{
-                        Yii::$app->session->setFlash('error',"Не прошёл валидацию пароля!");
+                        Yii::$app->session->setFlash('notifi',"Не прошёл валидацию пароля!");
                     }
                     
                 }
                 else{
-                    Yii::$app->session->setFlash('error','Пользователей нет!');
+                    Yii::$app->session->setFlash('notifi','Нет такого пользователя!');
                 }
 
                 }
             
-
          else {
             // данные не корректны: $errors - массив содержащий сообщения об ошибках
             $errors = $model->errors;
@@ -78,38 +75,44 @@ class UserController extends Controller
     public function actionSignup()
     {
         
-        // $modele = User::find()->where(['login' => 'admin'])->one();
-        // if (empty($modele)) {
-    
-        //     $user = new User();
-        //     $user->generateAuthKey();
-        //     $user->login = 'admin';
-        //     $user->setPassword('admin');
-        //     $user->f = 'Фамилия';
-        //     $user->i = 'Имя';
-        //     $user->o = 'Отчество';
-        //     $user->status = 1;
-        //     $user->email = 'admin@admin.com';
-        //     $user->phone = '+375294466222';
-        //     $user->save();
-        // }
+        $model = new \app\models\SignupForm;
+        $model->load(\Yii::$app->request->post());
 
+        if($model->validate()){
+            $user = User::find()->where(['login' => $model->login])->one();
+            if(!empty($user)){
+                Yii::$app->session->setFlash('notifi','Пользователь с таким логином уже существует!');
+            }
+            else{
+                if(!empty(User::find()->where(['email' => $model->email])->one())){
+                    Yii::$app->session->setFlash('error','Пользователь с таким email уже существует!'); 
+                }
+                else{
+                    $user = new User();
+                    $user->generateAuthKey();
+                    $user->login = $model->login;
+                    $user->setPassword('admin');
+                    $user->f = $model->f;
+                    $user->i = $model->i;
+                    $user->o = $model->o;
+                    $user->status = 0;
+                    $user->email = $model->email;
+                    $user->phone = $model->phone;
+                    $user->save();
 
-        // $identity = Yii::$app->user->identity;
-        // if($identity){
-        //     $asc = 'Дааа';
-        // }
-        // else{
-        //     $asc = 'Неаа';
-        // }
-        $asc = Yii::$app->user->id;
+                    // $auth = Yii::$app->authManager;
+                    // $authorRole = $auth->getRole('author');
+                    // $auth->assign($authorRole, $user->getId());
 
-
-        $data = User::find()->asArray()->where(['login'=> 'admin'])->limit(1)->one();
-
+                    return $this->goHome();
+                }
+            }
+        }
+        else{          
+            $errors = $model->errors;
+        }
         $this->view->title = 'Регистрация';
-        // return $this->render('signup',compact('data'));
-        return $this->render('signup',['asc'=>$asc]);
+        return $this->render('signup',compact('model'));
     }
 
     public function actionLogout(){

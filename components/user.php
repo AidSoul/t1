@@ -5,7 +5,7 @@ use Yii;
 
 class User extends \yii\web\User
 {
-    private function userExistenceCheck(){
+    public function userExistenceCheck(){
         $status = null;
         if(empty(Yii::$app->user->identity)){
             $status = false;

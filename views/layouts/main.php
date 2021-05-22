@@ -25,22 +25,24 @@ AppAsset::register($this);
  
 
     <?php $this->beginBody()?>
+
     <div class="container">
-    <div class="page">
+    <div class="page">     
     <header>
-    <div class="position-fix">
-               <span class="span-logo">Профиль</span>    
-             <hr>
-             <?= \Yii::$app->user->fio ?>
-             <?= Html::a('Выход',['/logout'])?>
-            </div>
+    <?php
+    if(Yii::$app->user->userExistenceCheck()){
+    ?>
+    <div class="user-profile__case">
+    <div class="user-profile__item text-center">Профиль</div>
+    <div class="user-profile__item text-center"><?= \Yii::$app->user->fio ?></div>
+    <div class="user-profile__item text-center"><?= Html::a('Выход',['/logout'])?></div>               
+    </div>
+    <?php }?>
+
         <nav class="links">
             <div class="links__item">
-               <span class="span-logo">Керамика</span>
-            
+               <span class="span-logo">Керамика</span>      
             </div>
-
-
             <div class="links__item links-group">
             <?= Html::a('Каталог',['/'])?>
             </div>
