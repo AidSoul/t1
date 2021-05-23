@@ -5,7 +5,6 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-use app\components\AdditionalValidator;
 
 class SignupForm extends Model 
 {

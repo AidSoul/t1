@@ -39,6 +39,8 @@ class UserController extends Controller
     public function actionLogin()
     {
 
+        // admiN$1
+
         $model = new \app\models\LoginForm;
         $user = new User;
        $model->load(\Yii::$app->request->post());
@@ -49,7 +51,6 @@ class UserController extends Controller
                 if(!empty($identity)){   
                     if($user->validatePassword($model->pass,$identity->pass)){              
                         Yii::$app->user->login($identity,3600*24*30);      
-                                         
                         return $this->goHome();
                     }
                     else{
@@ -88,10 +89,11 @@ class UserController extends Controller
                     Yii::$app->session->setFlash('error','Пользователь с таким email уже существует!'); 
                 }
                 else{
+                    
                     $user = new User();
                     $user->generateAuthKey();
                     $user->login = $model->login;
-                    $user->setPassword('admin');
+                    $user->setPassword($model->pass);
                     $user->f = $model->f;
                     $user->i = $model->i;
                     $user->o = $model->o;
@@ -100,9 +102,9 @@ class UserController extends Controller
                     $user->phone = $model->phone;
                     $user->save();
 
-                    // $auth = Yii::$app->authManager;
-                    // $authorRole = $auth->getRole('author');
-                    // $auth->assign($authorRole, $user->getId());
+                    $auth = Yii::$app->authManager;
+                    $authorRole = $auth->getRole('author');
+                    $auth->assign($authorRole, $user->status);
 
                     return $this->goHome();
                 }
