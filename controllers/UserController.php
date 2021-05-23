@@ -38,9 +38,7 @@ class UserController extends Controller
 
     public function actionLogin()
     {
-
         // admiN$1
-
         $model = new \app\models\LoginForm;
         $user = new User;
        $model->load(\Yii::$app->request->post());
