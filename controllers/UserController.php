@@ -6,7 +6,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\User;
+use app\models\tables\User;
 
 class UserController extends Controller
 {
@@ -39,8 +39,8 @@ class UserController extends Controller
     public function actionLogin()
     {
         // admiN$1
-        $model = new \app\models\LoginForm;
-        $user = new User;
+       $model = new \app\models\forms\LoginForm;
+       $user = new User;
        $model->load(\Yii::$app->request->post());
 
             if($model->validate()){
@@ -61,9 +61,7 @@ class UserController extends Controller
                 }
 
                 }
-            
          else {
-            // данные не корректны: $errors - массив содержащий сообщения об ошибках
             $errors = $model->errors;
         }
 
@@ -74,45 +72,28 @@ class UserController extends Controller
     public function actionSignup()
     {
         
-        $model = new \app\models\SignupForm;
+        $model = new \app\models\forms\SignupForm;
         $model->load(\Yii::$app->request->post());
-
+        
         if($model->validate()){
-            $user = User::find()->where(['login' => $model->login])->one();
-            if(!empty($user)){
-                Yii::$app->session->setFlash('notifi','Пользователь с таким логином уже существует!');
-            }
-            else{
-                if(!empty(User::find()->where(['email' => $model->email])->one())){
-                    Yii::$app->session->setFlash('error','Пользователь с таким email уже существует!'); 
-                }
-                else{
-                    
-                    $user = new User();
-                    $user->generateAuthKey();
-                    $user->login = $model->login;
-                    $user->setPassword($model->pass);
-                    $user->f = $model->f;
-                    $user->i = $model->i;
-                    $user->o = $model->o;
-                    $user->status = 0;
-                    $user->email = $model->email;
-                    $user->phone = $model->phone;
-                    $user->save();
-
-                    $auth = Yii::$app->authManager;
-                    $authorRole = $auth->getRole('author');
-                    $auth->assign($authorRole, $user->status);
-
-                    return $this->goHome();
-                }
-            }
+            $chekUser = new \app\models\additional\UserFuntion;
+            if($chekUser->checkCreateUser([
+            'login' => $model->login,
+            'email' => $model->email,
+            'phone' => $model->phone,
+            ],$model))
+            {
+            
+              return $this->goHome();     
         }
         else{          
             $errors = $model->errors;
         }
-        $this->view->title = 'Регистрация';
-        return $this->render('signup',compact('model'));
+
+    }
+    $this->view->title = 'Регистрация';
+    return $this->render('signup',compact('model'));
+     
     }
 
     public function actionLogout(){

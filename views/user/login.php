@@ -2,10 +2,10 @@
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use app\components\Notifications;
-
 ?>
+<div class="work-block__case">
 <?php 
-    echo Notifications::widget(['type'=>'danger','message'=>Yii::$app->session->getFlash('notifi')]);
+  echo  \yii\helpers\HtmlPurifier::process(Notifications::widget(['type'=>'danger','message'=>Yii::$app->session->getFlash('notifi')]));
 ?> 
 <?php $form = ActiveForm::begin(['options'=>['class'=>'form']]) ?>
 <?= $form->field($model, 'login')?>
@@ -13,4 +13,4 @@ use app\components\Notifications;
 <br>
 <?= Html::submitButton('Вход',['class'=>'btn btn-primary'])?>
 <?php $form = ActiveForm::end() ?>
-
+</div>

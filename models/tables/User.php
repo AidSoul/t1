@@ -1,6 +1,6 @@
 <?php 
 
-namespace app\models;
+namespace app\models\tables;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -19,7 +19,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getId()
     {
-        return $this->user_id;
+        return $this->id_user;
     }
     
     public static function findIdentity($id)
@@ -69,6 +69,23 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne([
             'login'=> $login
         ]);
+    }
+
+    static function findUserBy($fieldsSearch){
+        return static::find()->where($fieldsSearch)->asArray()->one();
+    }
+
+    public function createUser($model){
+        $this->generateAuthKey();
+        $this->login = $model->login;
+        $this->setPassword($model->pass);
+        $this->f = $model->f;
+        $this->i = $model->i;
+        $this->o = $model->o;
+        $this->status = 0;
+        $this->email = $model->email;
+        $this->phone = $model->phone;
+        $this->save();
     }
 
 }

@@ -33,23 +33,26 @@ class SiteController extends Controller
      *
      * @return string
      */
+
     public function actionIndex()
     {
+        $goods = new \app\models\tables\Goods;
         $this->view->title = 'POTTERY';
-        return $this->render('index',['link'=>'active']);
+        return $this->render('index', ['goods'=>$goods->receiveGoods()]);
     }
 
    public function actionAbout()
     {
         $this->view->title = 'О нас';
 
-        return $this->render('about',['link'=>'active']);
+        return $this->render('about');
     }
+
     public function actionBasket()
     {
         $this->view->title = 'Корзина';
  
-        return $this->render('basket',['link'=>'active']);
+        return $this->render('basket');
     }
     
 

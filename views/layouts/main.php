@@ -23,7 +23,6 @@ AppAsset::register($this);
     </head>
     <body>
  
-
     <?php $this->beginBody()?>
 
     <div class="container">
@@ -62,11 +61,7 @@ AppAsset::register($this);
     </header>
     <article>
         <section class="work-block">
-        <div class="work-block__case">
-
         <?= $content ?>
-        </div>
-        </div>     
         </section>
     </article>
    
