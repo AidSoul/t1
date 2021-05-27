@@ -14,7 +14,7 @@ class Basket extends ActiveRecord
 
     public function __construct($goods = null)
     {
-        $this->goodsId = $goods;
+        $this->goodsId = base64_decode($goods);
         $user = Yii::$app->user->userId();
         if( $user ){
             $this->userId =  $user;
@@ -90,4 +90,5 @@ class Basket extends ActiveRecord
         }
 
     }
+
 }

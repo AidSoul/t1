@@ -111,8 +111,8 @@ class UserController extends Controller
     // Добавление в корзину товара
     public function actionAddBasket($product)
     {
-        $basket = new  \app\models\tables\Basket;
-        $basket->addInBasket(base64_decode($product));
+        $basket = new  \app\models\tables\Basket($product);
+        $basket->addInBasket();
         AddNotifi::widget(['type'=>'success','message'=>'Товар добавлен в корзину!']);
         $this->goHome();
     }
@@ -121,8 +121,8 @@ class UserController extends Controller
     // Не нужно в данный момент
     public function actionRemoveBasket($product)
     {
-        $basket = new  \app\models\tables\Basket;
-        $basket->removeOfBasket(base64_decode($product));
+        $basket = new  \app\models\tables\Basket($product);
+        $basket->removeOfBasket();
         AddNotifi::widget(['type'=>'danger','message'=>'Одним товаром стало меньше!']);
     }
         
@@ -138,7 +138,7 @@ class UserController extends Controller
         // $removeGoods =  $baskets->removeOne();
         // $baskets->delete();
 
-        $basket = new  \app\models\tables\Basket(base64_decode($goods));
+        $basket = new  \app\models\tables\Basket($goods);
         if($model->validate()){
         
         }
@@ -158,7 +158,11 @@ class UserController extends Controller
                 case 'd':
                     $basket->removeGoods();
                     AddNotifi::widget(['type'=>'danger','message'=>'Товар убран из корзины!']);
-                break;                
+                break;         
+                case 'ok':
+                    $basket->deleteAll();
+                    AddNotifi::widget(['type'=>'success','message'=>'Спасибо, ваш заказ принят!']);
+                break;         
             }
                
         }

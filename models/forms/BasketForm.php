@@ -6,19 +6,19 @@ use yii\base\Model;
 
 class BasketForm extends Model 
 {
-    public $count;
+    // public $count;
 
-    public function attributeLabels()
-    {
-      return [
-          'count' => 'Количество',
-      ];
-    }
+    // public function attributeLabels()
+    // {
+    //   return [
+    //       'count' => 'Количество',
+    //   ];
+    // }
 
-    public function rules(){
-        return [
-          [['count'], 'required'],
-          [['count'],'integer']
-        ];
-    }
+    // public function rules(){
+    //     return [
+    //       [['count'], 'required'],
+    //       [['count'],'integer']
+    //     ];
+    // }
 }
