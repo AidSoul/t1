@@ -1,13 +1,9 @@
 <?php 
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
-use app\components\Notifications;
 use yii\widgets\MaskedInput;
 ?>
-<div class="work-block__case">
-<?php
-      echo  \yii\helpers\HtmlPurifier::process(Notifications::widget(['type'=>'danger','message'=>Yii::$app->session->getFlash('notifi')]));
- ?>
+<div class="width-all">
 
 <?php $form = ActiveForm::begin(['options'=>['class'=>'form']]) ?>
 <?= $form->field($model, 'login')?>

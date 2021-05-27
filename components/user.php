@@ -5,6 +5,8 @@ use Yii;
 
 class User extends \yii\web\User
 {
+
+
     public function userExistenceCheck(){
         $status = null;
         if(empty(Yii::$app->user->identity)){
@@ -14,6 +16,14 @@ class User extends \yii\web\User
             $status = true;
         }
         return $status;
+    }
+    public function userId(){
+        if($this->userExistenceCheck()){
+            return \Yii::$app->user->identity->id_user;
+        }
+        else{
+            return false;
+        }
     }
 
     public function getlogin()

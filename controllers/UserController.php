@@ -8,6 +8,9 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\tables\User;
 
+use app\components\AddNotifi;
+use app\models\tables\Goods;
+
 class UserController extends Controller
 {
 
@@ -52,12 +55,12 @@ class UserController extends Controller
                         return $this->goHome();
                     }
                     else{
-                        Yii::$app->session->setFlash('notifi',"Не прошёл валидацию пароля!");
+                        AddNotifi::widget(['type'=>'danger','message'=>'Не прошёл валидацию пароля!']);
                     }
                     
                 }
                 else{
-                    Yii::$app->session->setFlash('notifi','Нет такого пользователя!');
+                    AddNotifi::widget(['type'=>'danger','message'=>'Нет такого пользователя!']);
                 }
 
                 }
@@ -76,7 +79,7 @@ class UserController extends Controller
         $model->load(\Yii::$app->request->post());
         
         if($model->validate()){
-            $chekUser = new \app\models\additional\UserFuntion;
+            $chekUser = new \app\models\additionals\UserFuntion;
             if($chekUser->checkCreateUser([
             'login' => $model->login,
             'email' => $model->email,
@@ -96,6 +99,7 @@ class UserController extends Controller
      
     }
 
+    // Выход
     public function actionLogout(){
         if(isset(Yii::$app->user->identity)){
             Yii::$app->user->logout();
@@ -103,6 +107,62 @@ class UserController extends Controller
         $this->view->title = 'Выход';
         return $this->render('logout');
     }
+
+    // Добавление в корзину товара
+    public function actionAddBasket($product)
+    {
+        $basket = new  \app\models\tables\Basket;
+        $basket->addInBasket(base64_decode($product));
+        AddNotifi::widget(['type'=>'success','message'=>'Товар добавлен в корзину!']);
+        $this->goHome();
+    }
+
+    // Убрать товар из корзины
+    // Не нужно в данный момент
+    public function actionRemoveBasket($product)
+    {
+        $basket = new  \app\models\tables\Basket;
+        $basket->removeOfBasket(base64_decode($product));
+        AddNotifi::widget(['type'=>'danger','message'=>'Одним товаром стало меньше!']);
+    }
+        
     
-     
+    // Показать корзину
+    public function actionBasket($goods = null)
+    {
+        $model = new \app\models\forms\BasketForm;
+        $model->load(\Yii::$app->request->post());
+       
+        // $baskets = new  \app\models\additionals\BasketFunction(base64_decode($add));
+        // $baskets->add();
+        // $removeGoods =  $baskets->removeOne();
+        // $baskets->delete();
+
+        $basket = new  \app\models\tables\Basket(base64_decode($goods));
+        if($model->validate()){
+        
+        }
+        if($goods){
+            $goods = explode('$',$goods,2);
+            list($goods,$type) = $goods;
+           
+            switch($type){
+                case 'a':
+                    $basket->addInBasket();
+                    AddNotifi::widget(['type'=>'success','message'=>'Количество товара увеличилось']);
+                break;
+                case 'r':
+                    $removeGoods =  $basket->removeOfBasket();
+                    AddNotifi::widget(['type'=>$removeGoods[0],'message'=>$removeGoods[1]]);
+                break;
+                case 'd':
+                    $basket->removeGoods();
+                    AddNotifi::widget(['type'=>'danger','message'=>'Товар убран из корзины!']);
+                break;                
+            }
+               
+        }
+        $this->view->title = 'Корзина';
+        return $this->render('basket',['model'=>$model,'basket'=> $basket->receiveBasket()]);
+    }
 }

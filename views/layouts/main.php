@@ -1,4 +1,5 @@
 <?php 
+
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -6,9 +7,13 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
+use app\components\Notification;
+
 AppAsset::register($this);
 // <?= Html::a('Каталог',['/'],['class'=>'nav-link'])
+
 ?>
+
 <?php $this->beginPage()?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -33,7 +38,9 @@ AppAsset::register($this);
     ?>
     <div class="user-profile__case">
     <div class="user-profile__item text-center">Профиль</div>
-    <div class="user-profile__item text-center"><?= \Yii::$app->user->fio ?></div>
+    <div class="user-profile__item text-center"><?= Yii::$app->user->fio ?></div>
+    <div class="user-profile__item text-center"><?= Html::a('Добавить Товар',['/product-add']) ?></div>
+    <div class="user-profile__item text-center"><?= Html::a('Добавить Категорию',['/category-add']) ?></div>
     <div class="user-profile__item text-center"><?= Html::a('Выход',['/logout'])?></div>               
     </div>
     <?php }?>
@@ -60,9 +67,8 @@ AppAsset::register($this);
         </nav>
     </header>
     <article>
-        <section class="work-block">
+        <?php   echo  Notification::widget(); ?>
         <?= $content ?>
-        </section>
     </article>
    
 </div>

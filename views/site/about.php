@@ -1,4 +1,6 @@
 <?php
 
 ?>
-О нас
+  <div class="width-all">
+    О нас
+  </div>

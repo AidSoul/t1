@@ -1,9 +1,10 @@
 <?php
 
-namespace app\models\additional;
+namespace app\models\additionals;
 
 use Yii;
 use yii\base\Model;
+use app\components\AddNotifi;
 
 class UserFuntion extends Model 
 {
@@ -20,7 +21,7 @@ class UserFuntion extends Model
     }
 
     private function creatSession($errorName){
-        Yii::$app->session->setFlash('notifi',"Пользователь с таким {$errorName} уже существует!");
+        AddNotifi::widget(['type'=>'danger','message'=>"Пользователь с таким {$errorName} уже существует!"]);
     }
 
     public function checkCreateUser($data, $model = [null])
@@ -46,6 +47,7 @@ class UserFuntion extends Model
             }
     
     }
+    
 
 
 

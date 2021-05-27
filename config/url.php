@@ -1,5 +1,5 @@
 <?php
-$folder = ['site','user'];
+$folder = ['site','user','admin'];
 
 return [
     'enablePrettyUrl' => true,
@@ -8,9 +8,15 @@ return [
     'rules' => [
         // '<action:(about|basket)>' => 'site/</action>',
         'about' => $folder[0].'/about',
-        'basket' => $folder[0].'/basket',
+        'basket' => $folder[1].'/basket',
+        'add-basket' => $folder[1].'/add-basket',
+        'remove-basket' => $folder[1].'/remove-basket',
+        'redirection' => $folder[1].'/redirection',
         'login' => $folder[1].'/login',
         'signup' => $folder[1].'/signup',
-        'logout' => $folder[1].'/logout'
+        'logout' => $folder[1].'/logout',
+        'product-add'=> $folder[2].'/product-add',
+        'category-add'=> $folder[2].'/category-add',
+        'product-remove'=> $folder[2].'/product-remove',
     ]
     ];
