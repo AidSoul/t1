@@ -189,3 +189,37 @@
   color: #fc4551;
   font-size: 20px;
 }
+
+.radio-disign input[type="checkbox"]{
+  display: none;
+}
+
+.comment{
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+.comment-case{
+  padding: 5px;
+  flex: 0 1 200px;
+background: #c3d8ff;
+  margin-bottom: 5px;
+
+}
+
+.comment-case__name{
+  border-bottom: solid 2px rgba(0, 0, 0, 0.493);
+
+}
+.comment-case__text{
+
+  border-bottom: solid 2px rgba(0, 0, 0, 0.493);
+}
+
+
+
+

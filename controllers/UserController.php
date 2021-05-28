@@ -7,9 +7,8 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\tables\User;
-
 use app\components\AddNotifi;
-use app\models\tables\Goods;
+
 
 class UserController extends Controller
 {

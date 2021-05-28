@@ -16,6 +16,7 @@ class Goods extends ActiveRecord
         return $this->hasMany(Category::className(), ['id_category' => 'category_id']);
     }
 
+
     public function receiveGoods()
     {
         return $this->find()->InnerJoinWith(Category::tableName())->asArray()->all();
