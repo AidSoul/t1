@@ -62,7 +62,7 @@ class SiteController extends Controller
 
             $comments = $comment->showComments();   
             if($remove){
-            $comment->removeComments(base64_decode($remove));
+            $comment->removeComments(base64_decode($remove));        
             AddNotifi::widget(['type'=>'success','message'=>'Комментарий удалён!']); 
             }              
             if($model->validate()){

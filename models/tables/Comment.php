@@ -81,9 +81,13 @@ class Comment extends ActiveRecord{
     }
 
     public function removeComments($id){
+            
             $f = $this->find()->where(['id_comment'=>$id])
             ->one();
-            $f->delete();
+            if(!empty($f)){
+                $f->delete();    
+            }
+           
     }
 
 }
