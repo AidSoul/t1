@@ -45,8 +45,15 @@ class Basket extends ActiveRecord
         
     }
 
+
     private function findByGoods(){
-        return $this->find()->where(['goods_id' => $this->goodsId,'user_id' => $this->userId])->one();
+ 
+     return $this->find()->where(['goods_id' => $this->goodsId,'user_id' => $this->userId])->one();
+        
+    }
+
+    public function removeAllGoodsInBasket(){
+        $this->deleteAll(['user_id'=>$this->userId]);
     }
 
     public function addInBasket()
@@ -64,6 +71,8 @@ class Basket extends ActiveRecord
        }
 
     }
+
+
 
     public function removeGoods(){
         $get =  $this->findByGoods();

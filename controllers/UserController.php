@@ -31,7 +31,7 @@ class UserController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['logout'],
+                        'actions' => ['logout','basket'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -101,11 +101,13 @@ class UserController extends Controller
 
     // Выход
     public function actionLogout(){
+
         if(isset(Yii::$app->user->identity)){
+            $basket = new  \app\models\tables\Basket(1);
+            $basket->removeAllGoodsInBasket();
             Yii::$app->user->logout();
         } 
-        $this->view->title = 'Выход';
-        return $this->render('logout');
+        $this->goHome();
     }
 
     // Добавление в корзину товара
@@ -126,7 +128,7 @@ class UserController extends Controller
         AddNotifi::widget(['type'=>'danger','message'=>'Одним товаром стало меньше!']);
     }
         
-    
+
     // Показать корзину
     public function actionBasket($goods = null)
     {
@@ -160,7 +162,7 @@ class UserController extends Controller
                     AddNotifi::widget(['type'=>'danger','message'=>'Товар убран из корзины!']);
                 break;         
                 case 'ok':
-                    $basket->deleteAll();
+                    $basket->removeAllGoodsInBasket();
                     AddNotifi::widget(['type'=>'success','message'=>'Спасибо, ваш заказ принят!']);
                 break;         
             }
@@ -169,4 +171,5 @@ class UserController extends Controller
         $this->view->title = 'Корзина';
         return $this->render('basket',['model'=>$model,'basket'=> $basket->receiveBasket()]);
     }
+
 }

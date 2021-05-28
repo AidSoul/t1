@@ -26,8 +26,8 @@ else{
         <div class="work-block__description">'.$i['description'].'</div>
         <div class="work-block__rating">'.Rating::widget(['star'=>$i['rating']]).'</div>
         <div class="work-block__link">'.Html::a('В корзину',['/add-basket?product='.base64_encode($i['id_goods'])]).'</div>
-        <br>
         <div class="work-block__link">'.Html::a('Удалить',['/product-remove?remove='.base64_encode($i['id_goods']).'&image='.base64_encode($i['image'])]).'</div>
+        <div class="work-block__link">'.Html::a('Комментарии',['/comment?product='.base64_encode($i['id_goods'])]).'</div>
         </div>
          </div>';
     }   

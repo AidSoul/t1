@@ -53,6 +53,11 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-
+    public function actionComment($product = null)
+    {
+        $model = new \app\models\forms\CommentForm;
+        $product = base64_decode($product);
+        return $this->render('comment', ['model'=>  $model,'product'=>  $product]);
+    }
 
 }

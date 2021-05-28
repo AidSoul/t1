@@ -20,7 +20,6 @@ if($basket){
       $totalPrice = $goods['price']*$i['count'];
       $idPr = base64_encode($goods['id_goods']);
       $arrBasket['total-price'] += $totalPrice;
-      // $arrBasket[$goods['name']]['price'] = $goods['price'];
       echo '
       <tbody>
         <tr>
@@ -35,7 +34,6 @@ if($basket){
     ';
     }
   } 
-
 ?>
 </table>
 <hr>
