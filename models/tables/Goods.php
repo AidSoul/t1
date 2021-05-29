@@ -34,24 +34,22 @@ class Goods extends ActiveRecord
       $this->description = $model->description;
       $this->count = $model->count;
       $this->rating = 0;
-      $this->category_id = base64_decode($model->category);
+      $this->category_id = base64_decode($model->category) + 1;
       $this->save();
     }
 
     public function removeGoods($id = 0,$img = 0)
     {
-       $a =  $this->findOne(['id_goods'=>base64_decode($id)]);
-       $a->delete();
-       unlink(Yii::$app->basePath . '/web/img/' .base64_decode($img));
+       $a = $this->findOne(['id_goods'=>base64_decode($id)]);
+       if($a){
+        $a->delete();
+        unlink(Yii::$app->basePath . '/web/img/' .base64_decode($img));
+       }
+       
+
+       
     }
     
-    public static function removeGoodsStatic($id = 0, $img = 0)
-    {
-        $a =  parent::findOne(['id_goods'=>$id]);
-        $a->delete();
-        unlink(Yii::$app->basePath . '/web/img/' .$img);
-    }
-
     public function addСount($model,$id)
     {   
         $find = $this->findOne(['id_goods'=>base64_decode($id)]);  

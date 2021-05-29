@@ -40,7 +40,7 @@ function adminUserFun($type,$id,$img = null){
           return Html::a('✎',['/add-count?product='.$id]);
         }
         else{
-          return Html::a('Удалить',['/product-remove?remove='.$id.'&image='.$img]);
+          return Html::a('Удалить',['/product-remove?remove='.$id.'&image='.base64_encode($img)]);
         }
       
       }

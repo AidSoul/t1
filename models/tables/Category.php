@@ -20,7 +20,7 @@ class Category extends ActiveRecord
     public function getNameCategory(){
         $items = [];
         foreach($this->find()->asArray()->all() as $i=>$v){
-           $items [base64_encode($i)] = $v['name_category'];
+           $items[base64_encode($i)] = $v['name_category'];
         }
         return $items;
     }
