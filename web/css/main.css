@@ -220,7 +220,10 @@ background: #c3d8ff;
   border-bottom: solid 2px rgba(0, 0, 0, 0.493);
 }
 
-
+.red-span {
+  color: #fc4551;
+  }
+  
 .link span{
 color: graysd;
 font-weight: bold;

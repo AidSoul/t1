@@ -162,7 +162,9 @@ class UserController extends Controller
                     if($add){
                         AddNotifi::widget(['type'=>'success','message'=>'Количество товара увеличилось']);
                     }
-
+                    // else{
+                    //     AddNotifi::widget(['type'=>'danger','message'=>'Нет на складе больше товара']);
+                    // }
                    
                 break;
                 case 'r':

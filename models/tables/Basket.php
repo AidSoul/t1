@@ -59,6 +59,16 @@ class Basket extends ActiveRecord
        }
 
     public function removeAllGoodsInBasket(){
+
+        $get = $this->countBasket();
+
+        foreach($get as $i){
+
+            $goods = Goods::findIdOne($i['goods_id']);
+            $goods->count = $goods->count - $i['count']; 
+            $goods->save();         
+        }
+
         $this->deleteAll(['user_id'=>$this->userId]);
     }
 

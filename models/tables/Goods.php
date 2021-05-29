@@ -16,6 +16,10 @@ class Goods extends ActiveRecord
         return $this->hasMany(Category::className(), ['id_category' => 'category_id']);
     }
 
+    public static function findIdOne($idGoods){
+
+        return parent::findOne(['id_goods'=>$idGoods]);
+    }
 
     public function receiveGoods()
     {
@@ -36,11 +40,16 @@ class Goods extends ActiveRecord
 
     public function removeGoods($id = 0,$img = 0)
     {
-        $this->find()
-        ->where(['id_goods'=>base64_decode($id)])
-        ->one()
-        ->delete();
-        unlink(Yii::$app->basePath . '/web/img/' .base64_decode($img));
+       $a =  $this->findOne(['id_goods'=>base64_decode($id)]);
+       $a->delete();
+       unlink(Yii::$app->basePath . '/web/img/' .base64_decode($img));
+    }
+    
+    public static function removeGoodsStatic($id = 0, $img = 0)
+    {
+        $a =  parent::findOne(['id_goods'=>$id]);
+        $a->delete();
+        unlink(Yii::$app->basePath . '/web/img/' .$img);
     }
 
     public function addСount($model,$id)
