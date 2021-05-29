@@ -37,12 +37,14 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        
         $goods = new \app\models\tables\Goods;
         $goods = $goods->receiveGoods();
         
         if(!$goods){
             $goods = [false,'Нет товаров'];
         }
+
         $this->view->title = 'POTTERY';
         return $this->render('index', ['goods'=>  $goods]);
     }

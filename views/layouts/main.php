@@ -38,9 +38,18 @@ AppAsset::register($this);
     ?>
     <div class="user-profile__case">
     <div class="user-profile__item text-center">Профиль</div>
-    <div class="user-profile__item text-center"><?= Yii::$app->user->fio ?></div>
+     <div class="user-profile__item text-center"><?= Yii::$app->user->fio ?></div>
+    <?php
+         if(Yii::$app->user->getStatus() === 1){
+
+        
+    ?>
     <div class="user-profile__item text-center"><?= Html::a('Добавить Товар',['/product-add']) ?></div>
     <div class="user-profile__item text-center"><?= Html::a('Добавить Категорию',['/category-add']) ?></div>
+   <?php
+    } 
+   ?>
+ 
     <div class="user-profile__item text-center"><?= Html::a('Выход',['/logout'])?></div>               
     </div>
     <?php }?>
@@ -55,8 +64,30 @@ AppAsset::register($this);
             <div class="links__item links-group">
             <?= Html::a('О нас',['/about']) ?>
             </div>
+            <?php 
+
+            $count = new \app\models\tables\Basket;
+          
+            if(($count) ){
+                $countGet =  (integer) count($count->countBasket());
+                if($countGet > '0'){
+                    $count =  '<span>('.$countGet.')</span>'; 
+
+                }
+                else{
+                    $count = '';
+                }
+                   
+
+            }
+            else{
+                $count = '';
+            }
+           
+
+            ?>
             <div class="links__item links-group">
-            <?= Html::a('Корзина',['/basket']) ?>
+            <?= Html::a("🗑 Корзина ".$count,['/basket'],['class'=>'link']) ?>
             </div>  
             <div class="links__item links-group">
             <?= Html::a('Вход',['/login']) ?>

@@ -112,10 +112,18 @@ class UserController extends Controller
     // Добавление в корзину товара
     public function actionAddBasket($product)
     {
+        if(isset(Yii::$app->user->identity)){
         $basket = new  \app\models\tables\Basket($product);
         $basket->addInBasket();
         AddNotifi::widget(['type'=>'success','message'=>'Товар добавлен в корзину!']);
+
+      
         $this->goHome();
+        }
+        else{
+            AddNotifi::widget(['type'=>'danger','message'=>'Авторизуйтесь, чтобы добовлять товары в корзину!']);
+            $this->goHome();
+        }
     }
 
     // Убрать товар из корзины
@@ -131,6 +139,7 @@ class UserController extends Controller
     // Показать корзину
     public function actionBasket($goods = null)
     {
+        if(isset(Yii::$app->user->identity)){
         $model = new \app\models\forms\BasketForm;
         $model->load(\Yii::$app->request->post());
        
@@ -169,6 +178,11 @@ class UserController extends Controller
         }
         $this->view->title = 'Корзина';
         return $this->render('basket',['model'=>$model,'basket'=> $basket->receiveBasket()]);
+    }
+    else{
+        AddNotifi::widget(['type'=>'danger','message'=>'Нужно авторизироваться, для просмотра корзины! ']);
+        $this->goHome();
+    }
     }
 
 }

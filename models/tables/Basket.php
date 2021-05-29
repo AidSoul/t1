@@ -48,9 +48,15 @@ class Basket extends ActiveRecord
 
     private function findByGoods(){
  
-     return $this->find()->where(['goods_id' => $this->goodsId,'user_id' => $this->userId])->one();
+     return $this->find('id_basket')->where(['goods_id' => $this->goodsId,'user_id' => $this->userId])->one();
         
     }
+    
+    public function countBasket(){
+ 
+        return $this->find()->where(['user_id' => $this->userId])->asArray()->all();
+           
+       }
 
     public function removeAllGoodsInBasket(){
         $this->deleteAll(['user_id'=>$this->userId]);
