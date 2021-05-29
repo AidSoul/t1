@@ -77,8 +77,7 @@ AppAsset::register($this);
                 else{
                     $count = '';
                 }
-                   
-
+                
             }
             else{
                 $count = '';

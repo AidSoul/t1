@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
    public function actionProductAdd()
    {
-      
+    if(Yii::$app->user->getStatus() === 1){
       $model = new \app\models\forms\ProductAddForm;
       $model->load(\Yii::$app->request->post());
 
@@ -27,10 +27,15 @@ class AdminController extends Controller
 
       $this->view->title = 'Добавить товар';
        return $this->render('ProductAdd', compact('model'));
+      }
+      else {
+        return 'No access';
+      }
    }
 
    public function actionProductRemove($remove, $image)
    {
+    if(Yii::$app->user->getStatus() === 1){
         $request = Yii::$app->request;
       if($request->get('remove')){
         $goods = new \app\models\tables\Goods;
@@ -39,11 +44,16 @@ class AdminController extends Controller
         $this->goHome();
       }
 
-   }
+   }     
+   else {
+    return 'No access';
+  }
+   
+  }
    
    public function actionCategoryAdd()
    {
-      
+    if(Yii::$app->user->getStatus() === 1){
       $model = new \app\models\forms\CategoryAddForm; 
       $model->load(\Yii::$app->request->post());
 
@@ -59,6 +69,31 @@ class AdminController extends Controller
 
        return $this->render('CategoryAdd', compact('model'));
    }
+   else {
+    return 'No access';
+   }
+  }
+  
+    public function actionAddCount($product = null)
+    {
+    if(Yii::$app->user->getStatus() === 1){
+        $request = Yii::$app->request;
+        
+        $model = new \app\models\forms\CountGoodsForm; 
+        $model->load(\Yii::$app->request->post());
+  
+        if($model->validate()){
+        $goods = new \app\models\tables\Goods;
+        $goods->addСount($model,$product);
+        AddNotifi::widget(['type'=>'success','message'=>"Количество товара на складе: Обновлено!"]);
+        }
+       
 
-
+        return $this->render('CountGoodsAdd', compact('model'));
+        $this->view->title = 'Добавить категорию';
+    }     
+    else {
+    return 'No access';
+  }
+}
 }

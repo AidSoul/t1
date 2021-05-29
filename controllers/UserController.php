@@ -158,8 +158,12 @@ class UserController extends Controller
            
             switch($type){
                 case 'a':
-                    $basket->addInBasket();
-                    AddNotifi::widget(['type'=>'success','message'=>'Количество товара увеличилось']);
+                    $add =   $basket->addInBasket();
+                    if($add){
+                        AddNotifi::widget(['type'=>'success','message'=>'Количество товара увеличилось']);
+                    }
+
+                   
                 break;
                 case 'r':
                     $removeGoods =  $basket->removeOfBasket();

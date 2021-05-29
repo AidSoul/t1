@@ -20,5 +20,6 @@ return [
         'product-add'=> $folder[2].'/product-add',
         'category-add'=> $folder[2].'/category-add',
         'product-remove'=> $folder[2].'/product-remove',
+        'add-count' => $folder[2].'/add-count',
     ]
     ];

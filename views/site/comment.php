@@ -9,8 +9,8 @@ use app\components\Rating;
     <div class="comment">
 <?php 
 function removeT($id,$idProduct){
-return '<div class="comment-case__remove">'.Html::a('&#10060',['/'.Yii::$app->request->url.'&remove='.base64_encode($id).'']).'</div>';
-// return '<div class="comment-case__remove">'.Html::a('&#10060',['/comment-remove?product='.base64_encode($idProduct).'&remove='.base64_encode($id).'']).'</div>';
+// return '<div class="comment-case__remove">'.Html::a('&#10060',['/'.Yii::$app->request->url.'&remove='.base64_encode($id).'']).'</div>';
+return '<div class="comment-case__remove">'.Html::a('&#10060',['/comment-remove?product='.base64_encode($idProduct).'&remove='.base64_encode($id).'']).'</div>';
 }
 
 if($comments){

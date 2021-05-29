@@ -37,7 +37,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        
+
         $goods = new \app\models\tables\Goods;
         $goods = $goods->receiveGoods();
         
@@ -63,10 +63,10 @@ class SiteController extends Controller
             $comment = new \app\models\tables\Comment($product);
 
             $comments = $comment->showComments();   
-            if($remove){
-            $comment->removeComments(base64_decode($remove));        
-            AddNotifi::widget(['type'=>'success','message'=>'Комментарий удалён!']); 
-            }              
+            // if($remove){
+            // $comment->removeComments(base64_decode($remove));        
+            // AddNotifi::widget(['type'=>'success','message'=>'Комментарий удалён!']); 
+            // }              
             if($model->validate()){
                 $comment->addComments($model);
                 AddNotifi::widget(['type'=>'success','message'=>'Комментарий добавлен']);
@@ -76,15 +76,14 @@ class SiteController extends Controller
             return $this->render('comment', ['model'=>  $model, 'comments'=> $comments]);
     }
 
-    //  public function actionCommentRemove($url = null, $remove = null)
-    //         {               
-    //             $comment = new \app\models\tables\Comment;
-    //             if($remove){
-    //                 $comment->removeComments(base64_decode($remove));
-    //                 AddNotifi::widget(['type'=>'success','message'=>'Комментарий удалён!']); 
-                    
-    //              return $this->render('comment');
-    //         }
+     public function actionCommentRemove($product = null, $remove = null)
+            {               
+                $comment = new \app\models\tables\Comment;
+                if($remove){
+                    $comment->removeComments(base64_decode($remove));
+                    // AddNotifi::widget(['type'=>'success','message'=>'Комментарий удалён!']);                  
+                return $this->actionComment($product);
+            }
 
-    //         }
+            }
 }

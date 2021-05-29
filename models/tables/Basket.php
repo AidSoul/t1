@@ -48,7 +48,7 @@ class Basket extends ActiveRecord
 
     private function findByGoods(){
  
-     return $this->find('id_basket')->where(['goods_id' => $this->goodsId,'user_id' => $this->userId])->one();
+     return $this->findOne(['goods_id' => $this->goodsId,'user_id' => $this->userId]);
         
     }
     
@@ -66,8 +66,16 @@ class Basket extends ActiveRecord
     {
        $get = $this->findByGoods();
        if($get){
-        $get->count++;
-        $get->save();
+        $goods = Goods::findOne(['id_goods'=>$this->goodsId]);
+        if(!empty($goods)){
+          if($get->count < $goods->count){
+            $get->count++;
+            $get->save();
+          }
+          else{
+              return false;
+          }
+        }      
        }
        else{
         $this->goods_id = $this->goodsId;
@@ -77,8 +85,6 @@ class Basket extends ActiveRecord
        }
 
     }
-
-
 
     public function removeGoods(){
         $get =  $this->findByGoods();

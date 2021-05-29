@@ -33,7 +33,8 @@ class Goods extends ActiveRecord
       $this->category_id = base64_decode($model->category);
       $this->save();
     }
-    public function removeGoods($id = 1,$img = 1)
+
+    public function removeGoods($id = 0,$img = 0)
     {
         $this->find()
         ->where(['id_goods'=>base64_decode($id)])
@@ -42,4 +43,17 @@ class Goods extends ActiveRecord
         unlink(Yii::$app->basePath . '/web/img/' .base64_decode($img));
     }
 
+    public function addСount($model,$id)
+    {   
+        $find = $this->findOne(['id_goods'=>base64_decode($id)]);  
+        $find ->count = $model->count;
+        $find ->save();
+    }
+
+    public function removeСount($count,$id)
+    {
+        $this->findOne(['id_goods'=>base64_decode($id)]);
+        $this->count =  $this->count-$count;
+        $this->delete();
+    }
 }
