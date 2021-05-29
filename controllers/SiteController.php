@@ -39,14 +39,20 @@ class SiteController extends Controller
     {
 
         $goods = new \app\models\tables\Goods;
+        $model = new \app\models\forms\IndexForm;
+        $model->load(\Yii::$app->request->post());
+
         $goods = $goods->receiveGoods();
-        
         if(!$goods){
             $goods = [false,'Нет товаров'];
         }
 
+        if($model->validate()){
+
+        }
+        
         $this->view->title = 'POTTERY';
-        return $this->render('index', ['goods'=>  $goods]);
+        return $this->render('index', ['model'=>$model,'goods'=>  $goods]);
     }
 
    public function actionAbout()

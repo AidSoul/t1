@@ -1,13 +1,21 @@
 <?php 
 use yii\helpers\Html;
 use app\components\Notification;
+use yii\widgets\ActiveForm;
 use app\components\Rating;
-use app\models\tables\Goods;
 
 ?>
+
 <?php echo Notification::widget(); ?>
 <section class="work-block">
+<div class="width-all">
 
+<?php $form = ActiveForm::begin(['options'=>['class'=>'form']]) ?>
+<?= $form->field($model, 'search')?>
+<br>
+<?= Html::submitButton('Поиск',['class'=>'btn btn-primary'])?>
+<?php $form = ActiveForm::end() ?>
+</div>
 <?php
 function adminUserFun($type,$id,$img = null){
   $id = base64_encode($id);
@@ -42,9 +50,7 @@ function adminUserFun($type,$id,$img = null){
       break;
   }
 
-
 }
-
 
 if(!$goods[0]){
   echo $goods[1];
