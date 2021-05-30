@@ -41,23 +41,36 @@ class SiteController extends Controller
         $goods = new \app\models\tables\Goods;
         $model = new \app\models\forms\IndexForm;
         $model->load(\Yii::$app->request->post());
-        $sort = new  \app\models\additionals\SearchSortFunction;
-        $sort =  $sort->sort();
-        $goods = $goods->receiveGoods($sort);
+        $soSea = new  \app\models\additionals\SearchSortFunction;
+        
+        // сортировка
+        $sort =  $soSea->sort();
+
+        // заполнение поля для ввода
+        $searchInField = $goods->searchNameOne();
+        
+        if($model->search){
+           
+            $goods = $goods->searchName($model->search);
+        }
+        else{
+            $goods = $goods->receiveGoods($sort);
+        }
+        
         if(!$goods){
-            $goods = [false,'Нет товаров'];
+            AddNotifi::widget(['type'=>'danger','message'=>'Пусто']);
         }
 
         if($model->validate()){
 
         }
-
-       
+   
  
         $this->view->title = 'POTTERY';
         return $this->render('index', ['model'=>$model,'goods'=>  $goods,
-    
-        'sort' => $sort,]);
+        'sort' => $sort,
+        'searchInField'=>$searchInField
+        ]);
     }
 
    public function actionAbout()

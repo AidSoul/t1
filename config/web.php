@@ -47,11 +47,13 @@ $config = [
                 ],
             ],
         ],
+        
         'db' => $db,
         'urlManager' => $url,
         'session' => [
             'class' => 'yii\web\DbSession',
-        ],     
+        ],  
+        'sphinx' => $db,
     
     ],
     'params' => $params,

@@ -21,10 +21,21 @@ class Goods extends ActiveRecord
         return parent::findOne(['id_goods'=>$idGoods]);
     }
 
+    public function searchNameOne(){
+        return $this->find()->select(['id_goods','name'])->asArray()->all();
+    }
+
+    public function searchName($search)
+    {
+            return $this->find()->where(['like','id_goods',$search])->InnerJoinWith(Category::tableName())->asArray()->all();   
+    }
+
     public function receiveGoods($sort)
     {
+
+            return $this->find()->InnerJoinWith(Category::tableName())->orderBy($sort->orders)->asArray()->all();
         
-        return $this->find()->InnerJoinWith(Category::tableName())->orderBy($sort->orders)->asArray()->all();
+      
     }
 
     // public function receiveGoodsAsArray()

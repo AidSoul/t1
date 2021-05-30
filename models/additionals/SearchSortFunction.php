@@ -5,7 +5,6 @@ namespace app\models\additionals;
 use Yii;
 use yii\base\Model;
 use app\components\AddNotifi;
-use app\models\tables\Goods;
 
 class SearchSortFunction extends Model 
 {
@@ -14,8 +13,13 @@ class SearchSortFunction extends Model
     {
 
     }
-    public function search(){
-    
+
+    public static function search($name){
+        
+    $search = new \app\models\tables\Goods;
+
+     return  $search->find()->where(['name'=>$name])->asArray()->limit(3);
+
     }
 
     private function sortAttributes($sortName = null, $label = null)

@@ -4,7 +4,9 @@ use app\components\Notification;
 use yii\widgets\ActiveForm;
 use app\components\Rating;
 use app\models\tables\Category;
-
+use app\models\tables\Goods;
+use kartik\select2\Select2;
+use kartik\depdrop\DepDrop;
 ?>
 
 <?php echo Notification::widget(); ?>
@@ -13,9 +15,27 @@ use app\models\tables\Category;
 <div class="width-all">
 
 <?php $form = ActiveForm::begin(['options'=>['class'=>'form']]) ?>
-<?=$form->field($model, 'typeSeacrch')->dropDownList(['Категории товаров'=>Category::getNameCategory()]);
+<!-- <?=$form->field($model, 'typeSeacrch')->dropDownList(['Категории товаров'=>Category::getNameCategory()]);
+?> -->
+
+<?php 
+$data = [];
+foreach($searchInField as $i){
+
+  $data[$i['id_goods']] = $i['name'];
+}
+
+
+echo $form->field($model, 'search')->widget(Select2::className(), [
+    'data' => $data,
+    'language' => 'ru',
+    'options' => ['placeholder' => 'Имя'],
+    'pluginOptions' => [
+      'tags' => true,
+    ],
+]);
+
 ?>
-<?= $form->field($model, 'search')?>
 <br>
 <?= Html::submitButton('Поиск',['class'=>'btn btn-primary'])?>
 <?php $form = ActiveForm::end() ?>
@@ -56,11 +76,12 @@ function adminUserFun($type,$id,$img = null){
 
 }
 
-if(!$goods[0]){
-  echo $goods[1];
+if(!$goods){
+
 }
 // \yii\helpers\HtmlPurifier::process()
 else{
+
   foreach($goods as $i){  
     foreach($i['category'] as $j){
       $count = $i['count'];
