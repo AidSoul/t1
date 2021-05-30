@@ -3,10 +3,10 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use app\components\Notification;
 use yii\widgets\MaskedInput;
+use app\models\tables\Category;
 ?>
 
  <?php 
- $category =  new \app\models\tables\Category;
 
  ?>
  <div class="width-all">
@@ -15,7 +15,7 @@ use yii\widgets\MaskedInput;
  ?>
  <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 <?= $form->field($model, 'name')?>
-<?= $form->field($model, 'category')->dropDownList($category->getNameCategory())?>
+<?= $form->field($model, 'category')->dropDownList(Category::getNameCategory())?>
 
 <?= $form->field($model, 'description')->textarea()?>
 <?= $form->field($model, 'image')->fileInput()?>

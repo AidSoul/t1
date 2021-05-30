@@ -3,14 +3,18 @@ use yii\helpers\Html;
 use app\components\Notification;
 use yii\widgets\ActiveForm;
 use app\components\Rating;
+use app\models\tables\Category;
 
 ?>
 
 <?php echo Notification::widget(); ?>
 <section class="work-block">
+<?php echo $sort->link('name'). ''.$sort->link('count'). ''.$sort->link('rating')?>
 <div class="width-all">
 
 <?php $form = ActiveForm::begin(['options'=>['class'=>'form']]) ?>
+<?=$form->field($model, 'typeSeacrch')->dropDownList(['Категории товаров'=>Category::getNameCategory()]);
+?>
 <?= $form->field($model, 'search')?>
 <br>
 <?= Html::submitButton('Поиск',['class'=>'btn btn-primary'])?>

@@ -21,10 +21,17 @@ class Goods extends ActiveRecord
         return parent::findOne(['id_goods'=>$idGoods]);
     }
 
-    public function receiveGoods()
+    public function receiveGoods($sort)
     {
-        return $this->find()->InnerJoinWith(Category::tableName())->asArray()->all();
+        
+        return $this->find()->InnerJoinWith(Category::tableName())->orderBy($sort->orders)->asArray()->all();
     }
+
+    // public function receiveGoodsAsArray()
+    // {
+        
+    //     return $this->find()->InnerJoinWith(Category::tableName())->orderBy($sort->orders)->asArray()->all();
+    // }
 
     public function addGoods($model)
     {

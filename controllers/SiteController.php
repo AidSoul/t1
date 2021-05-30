@@ -41,8 +41,9 @@ class SiteController extends Controller
         $goods = new \app\models\tables\Goods;
         $model = new \app\models\forms\IndexForm;
         $model->load(\Yii::$app->request->post());
-
-        $goods = $goods->receiveGoods();
+        $sort = new  \app\models\additionals\SearchSortFunction;
+        $sort =  $sort->sort();
+        $goods = $goods->receiveGoods($sort);
         if(!$goods){
             $goods = [false,'Нет товаров'];
         }
@@ -50,9 +51,13 @@ class SiteController extends Controller
         if($model->validate()){
 
         }
-        
+
+       
+ 
         $this->view->title = 'POTTERY';
-        return $this->render('index', ['model'=>$model,'goods'=>  $goods]);
+        return $this->render('index', ['model'=>$model,'goods'=>  $goods,
+    
+        'sort' => $sort,]);
     }
 
    public function actionAbout()

@@ -17,10 +17,10 @@ class Category extends ActiveRecord
         return $this->hasOne(Goods::className(), ['category_id' => 'id_category']);
     }
 
-    public function getNameCategory(){
+    public static function getNameCategory(){
         $items = [];
-        foreach($this->find()->asArray()->all() as $i=>$v){
-           $items[base64_encode($i)] = $v['name_category'];
+        foreach(parent::find()->asArray()->all() as $i=>$v){
+           $items[base64_encode($v['id_category'])] = $v['name_category'];
         }
         return $items;
     }

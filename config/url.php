@@ -7,6 +7,7 @@ return [
     // 'suffix' => '.html',
     'rules' => [
         // '<action:(about|basket)>' => 'site/</action>',
+        '' => 'site/index',
         'comment' => $folder[0].'/comment',
         'comment-remove' => $folder[0].'/comment-remove',
         'about' => $folder[0].'/about',

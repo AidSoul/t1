@@ -7,18 +7,22 @@ use yii\base\Model;
 class IndexForm extends Model {
 
     public $search;
+    public $typeSeacrch;
+    public $typeSorting;
 
     public function attributeLabels()
     {
       return [
-          'search' => 'Поиск',
+          'search' => 'Текст поиска:',
+          'typeSeacrch' => 'Критерии поиска',
+          'typeSorting' => 'Сортировка'
       ];
     }
 
     public function rules(){
         return [
           [['search'], 'required'],
-          [['search'],'integer'],
+          [ ['search'], 'string','length' => [1,25] ],
         ];
     }
 }

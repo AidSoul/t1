@@ -8,9 +8,9 @@ return [
     'charset' => 'utf8',
 
     'enableSchemaCache' => false,
-    
+
     // Продолжительность кеширования схемы.
-    'schemaCacheDuration' => 60,
+    'schemaCacheDuration' => 3600,
     // Название компонента кеша, используемого для хранения информации о схеме
     'schemaCache' => 'cache',
 ];
